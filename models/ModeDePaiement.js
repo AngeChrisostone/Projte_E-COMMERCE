@@ -1,15 +1,10 @@
-import database  from "../Connexion.js";
-import { DataTypes } from "sequelize"; 
-const ModeDePaiement =database.define ('ModeDePaiement',{
-    IdModeDePaiement: {type:DataTypes.INTEGER,allowNull:false,primaryKey:true,autoIncrement:true,},
-    NomPaiement:{type:DataTypes.STRING, allowNull:true},
-    Details:{type:DataTypes.DATE, allowNull:false},
+import { DataTypes } from 'sequelize';
+import database from '../Connexion.js';
 
-},
-
-{ timestamps: false}
-);
+const ModeDePaiement = database.define('ModeDePaiement', {
+    IdModeDePaiement: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    NomPaiement: DataTypes.STRING,
+    Details: DataTypes.STRING
+}, { timestamps: false });
 
 export default ModeDePaiement;
-
-

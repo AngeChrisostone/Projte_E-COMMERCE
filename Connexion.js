@@ -1,12 +1,18 @@
-//Connexion à la base de données (connexion.js)
-import { Sequelize } from 'sequelize'
-import dotenv from 'dotenv'
-// console.log('PORT', dotenv.config())
-const ENV = dotenv.config().parsed
-const connexion = new Sequelize(ENV.DB_NAME,
-ENV.DB_USER, ENV.DB_PASSWORD, {
-host: ENV.DB_HOST,
-dialect: ENV.DB_DIALECT,
-// port:ENV.DB_PORT
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT } = process.env;
+
+const connexion = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+    host: DB_HOST,
+    dialect: DB_DIALECT,
+    port: DB_PORT,
+    logging: false, // Désactiver le logging de Sequelize
 });
-export default connexion
+
+connexion.authenticate()
+    .then(() => console.log("Connexion à la base de données réussie"))
+    .catch(error => console.error("Erreur de connexion à la base de données :", error));
+
+export default connexion;
