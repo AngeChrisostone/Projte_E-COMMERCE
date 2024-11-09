@@ -1,12 +1,11 @@
-import database from "../Connexion.js";
 import { DataTypes } from 'sequelize';
+import database from '../Connexion.js';
+
 const Coupon = database.define('Coupon', {
-    IdCoupon: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
-    Code: { type: DataTypes.STRING, allowNull: false },
-    Reduction: { type: DataTypes.DECIMAL, allowNull: false },
-    DateExpiration: { type: DataTypes.DATEONLY, allowNull: false },
+    IdCoupon: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    Code: DataTypes.STRING,
+    Reduction: DataTypes.DECIMAL,
+    DateExpiration: DataTypes.DATEONLY
 }, { timestamps: false });
 
 export default Coupon;
-
-

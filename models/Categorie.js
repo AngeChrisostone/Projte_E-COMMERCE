@@ -1,16 +1,10 @@
-import database  from "../Connexion.js";
-import { DataTypes } from "sequelize"; 
+import { DataTypes } from 'sequelize';
+import database from '../Connexion.js';
 
-const Categorie =database.define ('Categorie',{
-    IdCategorie: {type:DataTypes.INTEGER,allowNull:false,primaryKey:true,autoIncrement:true,},
-    DateCom:{type:DataTypes.DATE, allowNull:false},
-   StatusCom:{type:DataTypes.STRING, allowNull:False},
-
-   },
-
-{ timestamps: false}
-);
+const Categorie = database.define('Categorie', {
+    IdCategorie: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    Nom: DataTypes.STRING,
+    Description: DataTypes.STRING
+}, { timestamps: false });
 
 export default Categorie;
-
-

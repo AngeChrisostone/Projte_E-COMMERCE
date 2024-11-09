@@ -1,26 +1,13 @@
-//Importer la base de données pour créer les modèles 
-import database from "../Connexion.js";
-import {DataTypes } from 'sequelize'
+import { DataTypes } from 'sequelize';
+import database from '../Connexion.js';
 
-//Modele de la table  Produits
-
-const Produits = database.define('Produits',{
-    IdProduits: { type:DataTypes.INTEGER,allowNull:false, primaryKey: true, autoIncrement: true,},
-    NomProduits :{ type:DataTypes.STRING,allowNull:false},
-    DescriptionProd:{type:DataTypes.STRING,allowNull:false},
-    PrixProd:{type:DataTypes.INTEGER,allowNull:false},
-    StockProd:{type:DataTypes.INTEGER,allowNull:false},
-    Pays:{type:DataTypes.STRING,allowNull:false},
-    IdCategorie: { // Clé étrangère
-        type: DataTypes.INTEGER,
-        references: {
-            model: Categorie,     // Référence le modèle Utilisateur
-            key: 'IdCategorie'           // Référence la clé primaire `idUtilisateur` dans Utilisateur
-        },
-    },
-},
-{ timestamps: false}, //Ne pas avoir les colonnes createdAt and updatedAt automatiquement
-
-);
+const Produits = database.define('Produits', {
+    IdProduit: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    NomProduit: DataTypes.STRING,
+    DescriptionProd: DataTypes.STRING,
+    PrixProd: DataTypes.INTEGER,
+    StockProd: DataTypes.INTEGER,
+    IdCategorie: DataTypes.INTEGER
+}, { timestamps: false });
 
 export default Produits;
