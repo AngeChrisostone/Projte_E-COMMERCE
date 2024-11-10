@@ -1,10 +1,29 @@
 import Avis from '../models/Avis.js';
 
-// Fonction pour récupérer tous les avis
+// Fonction pour récupérer tous les avis avec pagination
 export const getAllReviews = async (req, res) => {
     try {
-        const reviews = await Avis.findAll({ include: ['produit', 'utilisateur'] });
-        res.status(200).json(reviews);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
+        const reviews = await Avis.findAndCountAll({
+            include: ['produit', 'utilisateur'],
+            limit: limit,
+            offset: offset
+        });
+
+        const totalPages = Math.ceil(reviews.count / limit);
+
+        res.status(200).json({
+            data: reviews.rows,
+            meta: {
+                totalItems: reviews.count,
+                totalPages: totalPages,
+                currentPage: page,
+                itemsPerPage: limit
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des avis' });
     }
@@ -37,7 +56,7 @@ export const createReview = async (req, res) => {
 // Fonction pour mettre à jour un avis par son ID
 export const updateReview = async (req, res) => {
     try {
-        const [updated] = await Avis.update(req.body, { where: { id: req.params.id } });
+        const [updated] = await Avis.update(req.body, { where: { IdAvis: req.params.id } });
         if (updated) {
             const updatedReview = await Avis.findByPk(req.params.id);
             res.status(200).json(updatedReview);
@@ -52,7 +71,7 @@ export const updateReview = async (req, res) => {
 // Fonction pour supprimer un avis par son ID
 export const deleteReview = async (req, res) => {
     try {
-        const deleted = await Avis.destroy({ where: { id: req.params.id } });
+        const deleted = await Avis.destroy({ where: { IdAvis: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {

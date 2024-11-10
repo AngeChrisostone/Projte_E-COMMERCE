@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import database from './Connexion.js';
 import './models/Relations.js';
+import routes from './Routes/index.js';
 
 const app = express();
 
@@ -13,6 +14,9 @@ app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Utiliser les routes avec un préfixe /api
+app.use('/', routes);
 
 // Synchroniser la base de données et démarrer le serveur
 database.sync({ alter: true })
