@@ -1,10 +1,29 @@
 import Categorie from '../models/Categorie.js';
 
-// Fonction pour récupérer toutes les catégories
+// Fonction pour récupérer toutes les catégories avec pagination
 export const getAllCategories = async (req, res) => {
     try {
-        const categories = await Categorie.findAll({ include: ['produits'] });
-        res.status(200).json(categories);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
+        const categories = await Categorie.findAndCountAll({
+            include: ['produits'],
+            limit: limit,
+            offset: offset
+        });
+
+        const totalPages = Math.ceil(categories.count / limit);
+
+        res.status(200).json({
+            data: categories.rows,
+            meta: {
+                totalItems: categories.count,
+                totalPages: totalPages,
+                currentPage: page,
+                itemsPerPage: limit
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des catégories' });
     }
@@ -37,7 +56,7 @@ export const createCategory = async (req, res) => {
 // Fonction pour mettre à jour une catégorie par son ID
 export const updateCategory = async (req, res) => {
     try {
-        const [updated] = await Categorie.update(req.body, { where: { id: req.params.id } });
+        const [updated] = await Categorie.update(req.body, { where: { IdCategorie: req.params.id } });
         if (updated) {
             const updatedCategory = await Categorie.findByPk(req.params.id);
             res.status(200).json(updatedCategory);
@@ -52,7 +71,7 @@ export const updateCategory = async (req, res) => {
 // Fonction pour supprimer une catégorie par son ID
 export const deleteCategory = async (req, res) => {
     try {
-        const deleted = await Categorie.destroy({ where: { id: req.params.id } });
+        const deleted = await Categorie.destroy({ where: { IdCategorie: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {
