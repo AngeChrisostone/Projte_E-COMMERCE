@@ -1,3 +1,4 @@
+import { body, validationResult } from 'express-validator';
 import Produits from '../models/Produits.js';
 
 // Fonction pour récupérer tous les produits avec pagination
@@ -43,31 +44,69 @@ export const getProductById = async (req, res) => {
     }
 };
 
-// Fonction pour créer un nouveau produit
-export const createProduct = async (req, res) => {
-    try {
-        const newProduct = await Produits.create(req.body);
-        res.status(201).json(newProduct);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erreur lors de la création du produit' });
-    }
-};
+// Fonction pour créer un nouveau produit avec validation
+export const createProduct = [
+    // Ajouter des validateurs
+    body('NomProduit').notEmpty().withMessage('Le nom du produit est requis'),
+    body('DescriptionProd').notEmpty().withMessage('La description du produit est requise'),
+    body('PrixProd').isFloat().withMessage('Le prix du produit doit être un nombre décimal'),
+    body('StockProd').isInt().withMessage('Le stock du produit doit être un entier'),
+    body('IdCategorie').isInt().withMessage('ID catégorie doit être un entier'),
 
-// Fonction pour mettre à jour un produit par son ID
-export const updateProduct = async (req, res) => {
-    try {
-        const [updated] = await Produits.update(req.body, { where: { IdProduit: req.params.id } });
-        if (updated) {
-            const updatedProduct = await Produits.findByPk(req.params.id);
-            res.status(200).json(updatedProduct);
-        } else {
-            res.status(404).json({ error: 'Produit non trouvé' });
+    // Middleware pour gérer les erreurs de validation
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-    } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la mise à jour du produit' });
+        next();
+    },
+
+    // Le contrôleur réel
+    async (req, res) => {
+        try {
+            const newProduct = await Produits.create(req.body);
+            res.status(201).json(newProduct);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Erreur lors de la création du produit' });
+        }
     }
-};
+];
+
+// Fonction pour mettre à jour un produit par son ID avec validation
+export const updateProduct = [
+    // Ajouter des validateurs
+    body('NomProduit').optional().notEmpty().withMessage('Le nom du produit est requis'),
+    body('DescriptionProd').optional().notEmpty().withMessage('La description du produit est requise'),
+    body('PrixProd').optional().isFloat().withMessage('Le prix du produit doit être un nombre décimal'),
+    body('StockProd').optional().isInt().withMessage('Le stock du produit doit être un entier'),
+    body('IdCategorie').optional().isInt().withMessage('ID catégorie doit être un entier'),
+
+    // Middleware pour gérer les erreurs de validation
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+
+    // Le contrôleur réel
+    async (req, res) => {
+        try {
+            const [updated] = await Produits.update(req.body, { where: { IdProduit: req.params.id } });
+            if (updated) {
+                const updatedProduct = await Produits.findByPk(req.params.id);
+                res.status(200).json(updatedProduct);
+            } else {
+                res.status(404).json({ error: 'Produit non trouvé' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Erreur lors de la mise à jour du produit' });
+        }
+    }
+];
 
 // Fonction pour supprimer un produit par son ID
 export const deleteProduct = async (req, res) => {
