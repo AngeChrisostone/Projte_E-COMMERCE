@@ -33,17 +33,25 @@ export const getOrderById = async (req, res) => {
 };
 
 // Fonction pour créer une nouvelle commande
-export const createOrder = async (req, res) => {
-    try {
-        // Crée une nouvelle commande avec les données fournies dans la requête
-        const newOrder = await Commandes.create(req.body);
-        // Envoie les informations de la commande créée avec un statut 201 (créé)
-        res.status(201).json(newOrder);
-    } catch (error) {
-        // En cas d'erreur, envoie un message d'erreur avec un statut 500
-        res.status(500).json({ error: 'Erreur lors de la création de la commande' });
+import { body, validationResult } from 'express-validator';
+
+export const createOrder = [
+    body('IdUtilisateur').isInt(),
+    body('DateCom').isISO8601(),
+    // Ajoutez d'autres validations selon vos besoins
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const newOrder = await Commandes.create(req.body);
+            res.status(201).json(newOrder);
+        } catch (error) {
+            res.status(500).json({ error: 'Erreur lors de la création de la commande', details: error.message });
+        }
     }
-};
+];
 
 // Fonction pour mettre à jour une commande par son ID
 export const updateOrder = async (req, res) => {

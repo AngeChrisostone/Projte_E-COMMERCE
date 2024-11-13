@@ -7,7 +7,8 @@ const Utilisateurs = database.define('Utilisateurs', {
     Prenom: DataTypes.STRING,
     Email: DataTypes.STRING,
     MotDePasse: DataTypes.STRING,
-    IdRole: DataTypes.INTEGER
+    IdRole: DataTypes.INTEGER,
 }, { timestamps: false });
+
 
 export default Utilisateurs;
