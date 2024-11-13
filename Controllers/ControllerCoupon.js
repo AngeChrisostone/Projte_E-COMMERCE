@@ -71,7 +71,7 @@ export const updateCoupon = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await Coupon.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await Coupon.update(req.body, { where: { IdCoupon: req.params.id } });
             if (updated) {
                 const updatedCoupon = await Coupon.findByPk(req.params.id);
                 res.status(200).json(updatedCoupon);
@@ -87,7 +87,7 @@ export const updateCoupon = [
 // Fonction pour supprimer un coupon par son ID
 export const deleteCoupon = async (req, res) => {
     try {
-        const deleted = await Coupon.destroy({ where: { id: req.params.id } });
+        const deleted = await Coupon.destroy({ where: {IdCoupon: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {

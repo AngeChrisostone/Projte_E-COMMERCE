@@ -72,7 +72,7 @@ export const updateOrder = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await Commandes.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await Commandes.update(req.body, { where: { iIdCommande: req.params.id } });
             if (updated) {
                 const updatedOrder = await Commandes.findByPk(req.params.id);
                 res.status(200).json(updatedOrder);
@@ -88,7 +88,7 @@ export const updateOrder = [
 // Fonction pour supprimer une commande par son ID
 export const deleteOrder = async (req, res) => {
     try {
-        const deleted = await Commandes.destroy({ where: { id: req.params.id } });
+        const deleted = await Commandes.destroy({ where: { IdCommande: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {

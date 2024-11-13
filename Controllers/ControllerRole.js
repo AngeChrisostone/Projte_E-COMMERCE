@@ -67,7 +67,7 @@ export const updateRole = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await Role.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await Role.update(req.body, { where: { IdRole: req.params.id } });
             if (updated) {
                 const updatedRole = await Role.findByPk(req.params.id);
                 res.status(200).json(updatedRole);
@@ -83,7 +83,7 @@ export const updateRole = [
 // Fonction pour supprimer un rôle par son ID
 export const deleteRole = async (req, res) => {
     try {
-        const deleted = await Role.destroy({ where: { id: req.params.id } });
+        const deleted = await Role.destroy({ where: { IdRole: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {

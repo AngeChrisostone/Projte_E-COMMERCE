@@ -69,7 +69,7 @@ export const updateImage = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await ImageProduits.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await ImageProduits.update(req.body, { where: { IdImageProduit: req.params.id } });
             if (updated) {
                 const updatedImage = await ImageProduits.findByPk(req.params.id);
                 res.status(200).json(updatedImage);
@@ -85,7 +85,7 @@ export const updateImage = [
 // Fonction pour supprimer une image de produit par son ID
 export const deleteImage = async (req, res) => {
     try {
-        const deleted = await ImageProduits.destroy({ where: { id: req.params.id } });
+        const deleted = await ImageProduits.destroy({ where: { IdImageProduit: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {
