@@ -1,3 +1,4 @@
+import { body, validationResult } from 'express-validator';
 import DetailsCommande from '../models/DetailsCommande.js';
 
 // Fonction pour récupérer tous les détails de commande
@@ -24,30 +25,66 @@ export const getOrderDetailById = async (req, res) => {
     }
 };
 
-// Fonction pour créer un nouveau détail de commande
-export const createOrderDetail = async (req, res) => {
-    try {
-        const newDetail = await DetailsCommande.create(req.body);
-        res.status(201).json(newDetail);
-    } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la création du détail de commande' });
-    }
-};
+// Fonction pour créer un nouveau détail de commande avec validation
+export const createOrderDetail = [
+    // Ajouter des validateurs
+    body('IdCommande').isInt().withMessage('ID commande doit être un entier'),
+    body('IdProduit').isInt().withMessage('ID produit doit être un entier'),
+    body('Quantite').isInt().withMessage('La quantité doit être un entier'),
+    body('Prix').isDecimal().withMessage('Le prix doit être un nombre décimal'),
 
-// Fonction pour mettre à jour un détail de commande par son ID
-export const updateOrderDetail = async (req, res) => {
-    try {
-        const [updated] = await DetailsCommande.update(req.body, { where: { id: req.params.id } });
-        if (updated) {
-            const updatedDetail = await DetailsCommande.findByPk(req.params.id);
-            res.status(200).json(updatedDetail);
-        } else {
-            res.status(404).json({ error: 'Détail de commande non trouvé' });
+    // Middleware pour gérer les erreurs de validation
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-    } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la mise à jour du détail de commande' });
+        next();
+    },
+
+    // Le contrôleur réel
+    async (req, res) => {
+        try {
+            const newDetail = await DetailsCommande.create(req.body);
+            res.status(201).json(newDetail);
+        } catch (error) {
+            res.status(500).json({ error: 'Erreur lors de la création du détail de commande' });
+        }
     }
-};
+];
+
+// Fonction pour mettre à jour un détail de commande par son ID avec validation
+export const updateOrderDetail = [
+    // Ajouter des validateurs
+    body('IdCommande').optional().isInt().withMessage('ID commande doit être un entier'),
+    body('IdProduit').optional().isInt().withMessage('ID produit doit être un entier'),
+    body('Quantite').optional().isInt().withMessage('La quantité doit être un entier'),
+    body('Prix').optional().isDecimal().withMessage('Le prix doit être un nombre décimal'),
+
+    // Middleware pour gérer les erreurs de validation
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+
+    // Le contrôleur réel
+    async (req, res) => {
+        try {
+            const [updated] = await DetailsCommande.update(req.body, { where: { id: req.params.id } });
+            if (updated) {
+                const updatedDetail = await DetailsCommande.findByPk(req.params.id);
+                res.status(200).json(updatedDetail);
+            } else {
+                res.status(404).json({ error: 'Détail de commande non trouvé' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: 'Erreur lors de la mise à jour du détail de commande' });
+        }
+    }
+];
 
 // Fonction pour supprimer un détail de commande par son ID
 export const deleteOrderDetail = async (req, res) => {
