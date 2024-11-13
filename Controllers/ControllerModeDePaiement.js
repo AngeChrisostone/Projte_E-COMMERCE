@@ -69,7 +69,7 @@ export const updatePaymentMethod = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await ModeDePaiement.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await ModeDePaiement.update(req.body, { where: {  IdModeDePaiement: req.params.id } });
             if (updated) {
                 const updatedMethod = await ModeDePaiement.findByPk(req.params.id);
                 res.status(200).json(updatedMethod);
@@ -85,7 +85,7 @@ export const updatePaymentMethod = [
 // Fonction pour supprimer un mode de paiement par son ID
 export const deletePaymentMethod = async (req, res) => {
     try {
-        const deleted = await ModeDePaiement.destroy({ where: { id: req.params.id } });
+        const deleted = await ModeDePaiement.destroy({ where: {  IdModeDePaiement: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {

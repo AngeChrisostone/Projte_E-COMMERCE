@@ -78,7 +78,7 @@ export const updateUser = [
     // Le contrôleur réel
     async (req, res) => {
         try {
-            const [updated] = await Utilisateurs.update(req.body, { where: { id: req.params.id } });
+            const [updated] = await Utilisateurs.update(req.body, { where: { IdUtilisateur: req.params.id } });
             if (updated) {
                 const updatedUser = await Utilisateurs.findByPk(req.params.id);
                 res.status(200).json(updatedUser);
@@ -94,7 +94,7 @@ export const updateUser = [
 // Fonction pour supprimer un utilisateur par son ID
 export const deleteUser = async (req, res) => {
     try {
-        const deleted = await Utilisateurs.destroy({ where: { id: req.params.id } });
+        const deleted = await Utilisateurs.destroy({ where: { IdUtilisateur: req.params.id } });
         if (deleted) {
             res.status(204).json();
         } else {
