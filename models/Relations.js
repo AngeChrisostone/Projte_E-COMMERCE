@@ -53,6 +53,12 @@ Commandes.belongsTo(Coupon, {
     as: 'coupon'
 });
 
+//// Définir la relation entre Commandes et Details commande 
+Commandes.hasMany(DetailsCommande, {
+    foreignKey: 'IdCommande',
+    as: 'detailsCommande'
+});
+
 // Définir la relation entre Coupon et Commandes
 Coupon.hasOne(Commandes, {
     foreignKey: 'IdCoupon',

@@ -5,7 +5,7 @@ const Produits = database.define('Produits', {
     IdProduit: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     NomProduit: DataTypes.STRING,
     DescriptionProd: DataTypes.STRING,
-    PrixProd: DataTypes.INTEGER,
+    PrixProd: DataTypes.FLOAT,
     StockProd: DataTypes.INTEGER,
     IdCategorie: DataTypes.INTEGER
 }, { timestamps: false });
