@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
-import Adresse from '../models/Adresse.js';
+import Relations from '../models/Relations.js';
+const { Adresse } = Relations;
 
    // Fonction pour récupérer toutes les adresses avec pagination
    export const getAllAddresses = async (req, res) => {

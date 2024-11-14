@@ -11,6 +11,7 @@ import PanierRoutes from './PanierRoutes.js';
 import ProduitsRoutes from './ProduitsRoutes.js';
 import RoleRoutes from './RoleRoutes.js';
 import UtilisateursRoutes from './UtilisateursRoutes.js';
+import AuthRoutes from './AuthRoutes.js'
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router.use('/panier', PanierRoutes);
 router.use('/produits', ProduitsRoutes);
 router.use('/role', RoleRoutes);
 router.use('/utilisateurs', UtilisateursRoutes);
+router.use('/', AuthRoutes);
 
 export default router;
 

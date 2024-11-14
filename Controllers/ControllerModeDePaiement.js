@@ -1,6 +1,6 @@
 import { body, validationResult } from 'express-validator';
-import ModeDePaiement from '../models/ModeDePaiement.js';
-
+import Relations from '../models/Relations.js';
+const { ModeDePaiement } = Relations;
 // Fonction pour récupérer tous les modes de paiement
 export const getAllPaymentMethods = async (req, res) => {
     try {

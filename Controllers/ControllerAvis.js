@@ -1,5 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import Avis from '../models/Avis.js';
+import Relations from '../models/Relations.js';
+const { Avis } = Relations;
+
 
 // Fonction pour récupérer tous les avis avec pagination
 export const getAllReviews = async (req, res) => {

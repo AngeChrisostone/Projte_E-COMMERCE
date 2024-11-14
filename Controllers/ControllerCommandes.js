@@ -1,6 +1,9 @@
 import { body, validationResult } from 'express-validator';
-import Commandes from '../models/Commandes.js';
-import DetailsCommande from '../models/DetailsCommande.js';
+import Relations from '../models/Relations.js';
+const { Commandes} = Relations;
+const { DetailsCommande } = Relations;
+
+
 
 // Fonction pour récupérer toutes les commandes
 export const getAllOrders = async (req, res) => {

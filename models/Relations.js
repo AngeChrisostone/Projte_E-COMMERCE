@@ -4,7 +4,7 @@ import Categorie from './Categorie.js';
 import Commandes from './Commandes.js';
 import Coupon from './Coupon.js';
 import DetailsCommande from './DetailsCommande.js';
-import ImagesProduit from './ImageProduits.js';
+import ImageProduits from './ImageProduits.js';
 import ModeDePaiement from './ModeDePaiement.js';
 import Panier from './Panier.js';
 import Produits from './Produits.js';
@@ -73,8 +73,8 @@ DetailsCommande.belongsTo(Commandes, {
     onUpdate: 'CASCADE'
 });
 
-// Définir la relation entre ImagesProduit et Produits
-ImagesProduit.belongsTo(Produits, {
+// Définir la relation entre ImageProduits et Produits
+ImageProduits.belongsTo(Produits, {
     foreignKey: 'IdProduit',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
@@ -121,9 +121,9 @@ Produits.hasMany(Avis, {
 });
 
 // Définir la relation entre Produits et ImagesProduit
-Produits.hasMany(ImagesProduit, {
+Produits.hasMany(ImageProduits, {
     foreignKey: 'IdProduit',
-    as: 'imagesProduits'
+    as: 'imageProduits'
 });
 
 // Définir la relation entre Role et Utilisateurs
@@ -149,3 +149,6 @@ Utilisateurs.hasMany(Commandes, {
     foreignKey: 'IdUtilisateur',
     as: 'commandes'
 });
+
+
+export default { Adresse, Avis,Categorie,Commandes,Coupon,DetailsCommande,ImageProduits,ModeDePaiement,Panier,Produits,Role,Utilisateurs};

@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
-import Produits from '../models/Produits.js';
+import Relations from '../models/Relations.js';
+const { Produits } = Relations;
 
 // Fonction pour récupérer tous les produits avec pagination
 export const getAllProducts = async (req, res) => {

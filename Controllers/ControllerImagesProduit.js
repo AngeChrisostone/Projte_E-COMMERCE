@@ -1,5 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import ImageProduits from '../models/ImageProduits.js';
+import Relations from '../models/Relations.js';
+const { ImageProduits } = Relations;
+
 
 // Fonction pour récupérer toutes les images de produits
 export const getAllImages = async (req, res) => {

@@ -1,6 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import Panier from '../models/Panier.js';
-import Produits from '../models/Produits.js';
+import Relations from '../models/Relations.js';
+const { Panier} = Relations;
+const { Produits } = Relations;
 
 // Fonction pour récupérer le panier d'un utilisateur par son ID
 export const getUserCart = async (req, res) => {

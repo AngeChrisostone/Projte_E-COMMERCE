@@ -1,5 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import Categorie from '../models/Categorie.js';
+import Relations from '../models/Relations.js';
+const { Categorie } = Relations;
+
 
 // Fonction pour récupérer toutes les catégories avec pagination
 export const getAllCategories = async (req, res) => {
