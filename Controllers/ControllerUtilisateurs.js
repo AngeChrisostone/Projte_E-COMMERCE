@@ -1,8 +1,9 @@
 import { body, validationResult } from 'express-validator';
-import Utilisateurs from '../models/Utilisateurs.js';
-import Panier from '../models/Panier.js';
-import Commandes from '../models/Commandes.js';
-import Role from '../models/Role.js';
+import Relations from '../models/Relations.js';
+const { Utilisateurs } = Relations;
+const { Panier } = Relations;
+const { Commandes} = Relations;
+const { Role } = Relations;
 
 // Fonction pour récupérer tous les utilisateurs
 export const getAllUsers = async (req, res) => {
@@ -29,22 +30,22 @@ export const getUserById = async (req, res) => {
 };
 
 // Fonction pour créer un nouvel utilisateur avec validation
-export const createUser = [
+export const createUser =
     // Ajouter des validateurs
-    body('Nom').notEmpty().withMessage('Le nom est requis'),
-    body('Prenom').notEmpty().withMessage('Le prénom est requis'),
-    body('Email').isEmail().withMessage('L\'email doit être valide'),
-    body('MotDePasse').isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
-    body('IdRole').isInt().withMessage('ID rôle doit être un entier'),
+    // body('Nom').notEmpty().withMessage('Le nom est requis'),
+    // body('Prenom').notEmpty().withMessage('Le prénom est requis'),
+    // body('Email').isEmail().withMessage('L\'email doit être valide'),
+    // body('MotDePasse').isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
+    // body('IdRole').isInt().withMessage('ID rôle doit être un entier'),
 
     // Middleware pour gérer les erreurs de validation
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    },
+    // (req, res, next) => {
+    //     const errors = validationResult(req);
+    //     if (!errors.isEmpty()) {
+    //         return res.status(400).json({ errors: errors.array() });
+    //     }
+
+    // },
 
     // Le contrôleur réel
     async (req, res) => {
@@ -55,7 +56,7 @@ export const createUser = [
             res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur' });
         }
     }
-];
+;
 
 // Fonction pour mettre à jour un utilisateur par son ID avec validation
 export const updateUser = [

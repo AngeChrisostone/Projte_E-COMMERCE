@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllImages, getImageById, createImage, updateImage, deleteImage } from '../controllers/ControllerImagesProduit.js';
+import { getAllImages, getImageById, createImage, updateImage, deleteImage } from'../Controllers/ControllerImagesProduit.js';
 
 const router = express.Router();
 

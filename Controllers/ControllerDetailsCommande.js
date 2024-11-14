@@ -1,5 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import DetailsCommande from '../models/DetailsCommande.js';
+import Relations from '../models/Relations.js';
+const { DetailsCommande } = Relations;
+
 
 // Fonction pour récupérer tous les détails de commande
 export const getAllOrderDetails = async (req, res) => {

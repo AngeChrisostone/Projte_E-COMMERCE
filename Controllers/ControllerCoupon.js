@@ -1,5 +1,7 @@
 import { body, validationResult } from 'express-validator';
-import Coupon from '../models/Coupon.js';
+import Relations from '../models/Relations.js';
+const { Coupon } = Relations;
+
 
 // Fonction pour récupérer tous les coupons
 export const getAllCoupons = async (req, res) => {
