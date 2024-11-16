@@ -1,0 +1,5 @@
+Niamke (Tables : Adresse ,produits, commande,PanierProduis ;réalisation des diagrammes, les controllers,teste postman) 
+Sow(Tables: detailsCommande ,coupon,imagesPoduits,les routes,paginations )
+Boukary(Tables : avis,categorie,mode de paiement,les validations)
+Ezechiel(Tables : Role, Panier,Utilisateur, authentification)
+'liens git : https://github.com/AngeChrisostone/Projte_E-COMMERCE.git

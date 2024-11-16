@@ -1,0 +1,866 @@
+{
+	"info": {
+		"_postman_id": "4b73ccbc-25d9-4573-9168-a21253182e4e",
+		"name": "Projet_Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38152990"
+	},
+	"item": [
+		{
+			"name": "Utilisateurs",
+			"item": [
+				{
+					"name": "ajout utilisateurs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nom\": \"adnane\",\r\n    \"Prenom\": \"Boukary boss\",\r\n    \"Email\": \"boukaryBoss@gmail.com\",\r\n    \"MotDePasse\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/utilisateurs"
+					},
+					"response": []
+				},
+				{
+					"name": "modifier utilisateur",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"MotDePasse\": \"chris2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/utilisateurs/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher  les utilisateurs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>ID Utilisateur</th>\r",
+									"        <th>Nom</th>\r",
+									"        <th>Prénom</th>\r",
+									"        <th>Email</th>\r",
+									"        <th>Mot de Passe</th>\r",
+									"        <th>ID Role</th>\r",
+									"    </tr>\r",
+									"    \r",
+									"    {{#each response}}\r",
+									"        <tr>\r",
+									"            <td>{{IdUtilisateur}}</td>\r",
+									"            <td>{{Nom}}</td>\r",
+									"            <td>{{Prenom}}</td>\r",
+									"            <td>{{Email}}</td>\r",
+									"            <td>{{MotDePasse}}</td>\r",
+									"            <td>{{IdRole}}</td>\r",
+									"        </tr>\r",
+									"    {{/each}}\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return { response: pm.response.json() }\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/utilisateurs"
+					},
+					"response": []
+				},
+				{
+					"name": "Afificher 1 utilisateur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>IdUtilisateur</th>\r",
+									"        <th>Nom</th>\r",
+									"        <th>Prenom</th>\r",
+									"        <th>Email</th>\r",
+									"        <th>MotDePasse</th>\r",
+									"        <th>IdRole</th>\r",
+									"    </tr>\r",
+									"    <tr>\r",
+									"        <td>{{response.IdUtilisateur}}</td>\r",
+									"        <td>{{response.Nom}}</td>\r",
+									"        <td>{{response.Prenom}}</td>\r",
+									"        <td>{{response.Email}}</td>\r",
+									"        <td>{{response.MotDePasse}}</td>\r",
+									"        <td>{{response.IdRole}}</td>\r",
+									"    </tr>\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return {response: pm.response.json()}\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/utilisateurs/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer utilisateurs",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/utilisateurs/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "creation roles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NomRole\":\"Utilisateurs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Role"
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher Roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>Role ID</th>\r",
+									"        <th>Role Name</th>\r",
+									"        <th>Users</th>\r",
+									"    </tr>\r",
+									"    \r",
+									"    {{#each response}}\r",
+									"        <tr>\r",
+									"            <td>{{IdRole}}</td>\r",
+									"            <td>{{NomRole}}</td>\r",
+									"            <td>{{utilisateurs.length}}</td>\r",
+									"        </tr>\r",
+									"    {{/each}}\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return {response: pm.response.json()}\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/Role"
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NomRole\": \"client\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Role/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer Role",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Role/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Affiche un role",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Adresse",
+			"item": [
+				{
+					"name": "Creation Adresses",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ModifierAdresse",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher les adresses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/Adresse"
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher une adresse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/Adresse/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une adresse",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorie",
+			"item": [
+				{
+					"name": "creation categorie",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher toutes les categorie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/Categorie"
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher une categorie",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier Categorie",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nom\":\"Robes de fille\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Categorie/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Categorie/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coupon",
+			"item": [
+				{
+					"name": "creer coupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"Code\": \"Black\",\r\n    \"Reduction\": 12.5,\r\n    \"DateExpiration\": \"2024-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "rechercher coupon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/Coupon/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer coupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Coupon/2"
+					},
+					"response": []
+				},
+				{
+					"name": "modifier coupon",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Details commande",
+			"item": [
+				{
+					"name": "creer details commande",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdCommande\": 7,\r\n    \"IdProduit\":8,\r\n    \"Quantite\": 7,\r\n    \"Prix\": 12.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/DetailsCommande"
+					},
+					"response": []
+				},
+				{
+					"name": "afficher tout les details des commandes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "supprimer les details dune commande",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/DetailsCommande/2"
+					},
+					"response": []
+				},
+				{
+					"name": "modifier detail  dune commande",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commande",
+			"item": [
+				{
+					"name": "creer commande",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"DateCom\":\"2024-01-01\" ,\r\n    \"StatusCom\": \"Livre\",\r\n    \"IdUtilisateur\": 10,\r\n    \"IdCoupon\": 4,\r\n    \"IdModeDePaiement\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Commandes"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer commande",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Commandes/5"
+					},
+					"response": []
+				},
+				{
+					"name": "modifier commande",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"DateCom\": \"2024-01-03\",\r\n    \"StatusCom\": \"en cours\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/commandes/7"
+					},
+					"response": []
+				},
+				{
+					"name": "afficher commande",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mode de paiement",
+			"item": [
+				{
+					"name": "creer mode de paiment",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "supprimer coupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/ModeDePaiement/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier coupon",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "afficher les coupons",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produits",
+			"item": [
+				{
+					"name": "creer produit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NomProduit\" :\"Riz\",\r\n    \"DescriptionProd\":\"Produit de beaute\",\r\n    \"PrixProd\": 19.99,\r\n    \"StockProd\": 12369,\r\n    \"IdCategorie\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Produits"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer produits",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Produits/4"
+					},
+					"response": []
+				},
+				{
+					"name": "modifier  produit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n            \"NomProduit\": \"Yalla\",\r\n            \"DescriptionProd\": \"sneakers air jordan homme\",\r\n            \"PrixProd\": 250,\r\n            \"StockProd\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Produits/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Aficher un produit",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher les produits",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Avis",
+			"item": [
+				{
+					"name": "Creation Avis",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Note\":\"j'aime\" ,\r\n    \"Commentaire\":\"jai adorer cet article\" ,\r\n    \"DateAvis\":\"2025-10-11\" ,\r\n    \"IdProduit\":\"5\" , \r\n    \"IdUtilisateur\":\"11\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Avis"
+					},
+					"response": []
+				},
+				{
+					"name": "Affiche avisr",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher un avis",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un avis",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Note\":\"je n'aime pas\",\r\n    \"Commentaire\":\"Je deteste ce produit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Avis/1"
+					},
+					"response": []
+				},
+				{
+					"name": "supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/Avis/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image Produits",
+			"item": [
+				{
+					"name": "creation image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UrlImage\": \"https://exemple.com/image.jpg\",\r\n    \"IdProduit\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/ImageProduits"
+					},
+					"response": []
+				},
+				{
+					"name": "recuperer toute les images",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "recuperer image par id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "mise ajour",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UrlImage\": \"https://exemple.com/image_updated.jpg\",\r\n    \"IdProduit\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/ImageProduits/2"
+					},
+					"response": []
+				},
+				{
+					"name": "supprimer",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Panier",
+			"item": [
+				{
+					"name": "creer un panier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdUtilisateur\": 11\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Panier/create"
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter Produits au panier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdUtilisateur\": 15,\r\n    \"IdProduit\": 5,\r\n    \"Quantite\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Panier"
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer un panier",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentification",
+			"item": [
+				{
+					"name": "acces admin avec token",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Conexion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"Email\": \"lalalali@gmail.com\",\r\n    \"MotDePasse\": \"Ange123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/Utilisateurs/Login"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

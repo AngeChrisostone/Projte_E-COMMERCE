@@ -31,21 +31,21 @@ export const getUserById = async (req, res) => {
 
 // Fonction pour créer un nouvel utilisateur avec validation
 export const createUser =
-    // Ajouter des validateurs
-    // body('Nom').notEmpty().withMessage('Le nom est requis'),
-    // body('Prenom').notEmpty().withMessage('Le prénom est requis'),
-    // body('Email').isEmail().withMessage('L\'email doit être valide'),
-    // body('MotDePasse').isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
-    // body('IdRole').isInt().withMessage('ID rôle doit être un entier'),
+    //Ajouter des validateurs
+    body('Nom').notEmpty().withMessage('Le nom est requis')
+    body('Prenom').notEmpty().withMessage('Le prénom est requis'),
+    body('Email').isEmail().withMessage('L\'email doit être valide'),
+    body('MotDePasse').isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères'),
+    body('IdRole').isInt().withMessage('ID rôle doit être un entier'),
 
     // Middleware pour gérer les erreurs de validation
-    // (req, res, next) => {
-    //     const errors = validationResult(req);
-    //     if (!errors.isEmpty()) {
-    //         return res.status(400).json({ errors: errors.array() });
-    //     }
+     (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
-    // },
+     },
 
     // Le contrôleur réel
     async (req, res) => {
